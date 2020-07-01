@@ -16,6 +16,14 @@ In this example we will create a simple CI system that uses Jenkins to build our
 
 2. In this repository I am going to set this up. If you are forking, then just update `cicd/jobs/build.jenkins` and `cicd/pipelines/build.jenkins` with your own fork names.
 
+# Prerequisites
+
+Prerequisites:
+
+* [Helm](https://docs.helm.sh/using_helm/#installing-helm)
+* [Webhook Relay account](https://my.webhookrelay.com)
+* Kubernetes
+
 # Installation
 
 ## Jenkins operator
@@ -49,4 +57,81 @@ oHlaSPMslZr3w
 
 And now you can open your browser:
 
-![](static/login.png)
+![Login into Jenkins](static/login.png)
+
+Once you login, you should be able to see a Seed job that has completed and a new "Build jenkins-oeprator" job:
+
+![Dashboard](static/dashboard.png)
+
+## Webhook Relay Operator
+
+Retrieve your access token key & secret pair from https://my.webhookrelay.com/tokens and set it as an env variable:
+
+```
+export RELAY_KEY=xxxxxxxxxxxx
+export RELAY_SECRET=xxxxx
+```
+
+Add Webhook Relay Operator Helm repository and install it:
+
+```bash
+helm repo add webhookrelay https://charts.webhookrelay.com
+helm repo update
+helm upgrade --install webhookrelay-operator --namespace=jenkins webhookrelay/webhookrelay-operator \
+  --set credentials.key=$RELAY_KEY --set credentials.secret=$RELAY_SECRET
+```
+
+Now, let's check Jenkins service address so we can configure our webhook forwarding CR:
+
+```
+kubectl get svc
+NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+jenkins-operator-http-example    ClusterIP   10.102.22.176   <none>        8080/TCP            37m
+jenkins-operator-metrics         ClusterIP   10.100.220.49   <none>        8383/TCP,8686/TCP   97m
+jenkins-operator-slave-example   ClusterIP   10.96.229.141   <none>        50000/TCP           37m
+```
+
+Check out the CR in `webhookrelay_cr.yaml` file and if needed update destination address. Once you are happy with it, let's create it:
+
+```
+kubectl apply -f webhookrelay_cr.yaml
+```
+
+And once it's created you should be able to view the CR status:
+
+```
+$ kubectl describe webhookrelayforwards.forward.webhookrelay.com example-forward
+Name:         example-forward
+Namespace:    jenkins
+Labels:       <none>
+Annotations:  API Version:  forward.webhookrelay.com/v1
+Kind:         WebhookRelayForward
+Metadata:
+  Creation Timestamp:  2020-07-01T23:33:12Z
+  Generation:          1
+  Resource Version:    106773
+  Self Link:           /apis/forward.webhookrelay.com/v1/namespaces/jenkins/webhookrelayforwards/example-forward
+  UID:                 d56de305-240f-4222-8f89-0dfee70fa804
+Spec:
+  Buckets:
+    Inputs:
+      Description:           Endpoint for GitHub
+      Name:                  public-endpoint
+      Response Body:         OK
+      Response Status Code:  200
+    Name:                    jenkins-whr-operator
+    Outputs:
+      Destination:  http://jenkins-operator-http-example:8080/github-webhook/
+      Name:         jenkins
+Status:
+  Agent Status:  Running
+  Public Endpoints:
+    https://k0yv9ip5sxxp55ncsu936k.hooks.webhookrelay.com
+  Ready:           true
+  Routing Status:  Configured
+Events:            <none>
+```
+
+Take the public endpoint URL and add it to your GitHub repository:
+
+![](static/github-config.png)
