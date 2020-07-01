@@ -4,6 +4,9 @@ metadata:
   name: example
 spec:
   master:
+    plugins:
+      - name: github
+        version: 1.30.0
     containers:
     - name: jenkins-master
       image: jenkins/jenkins:lts
@@ -41,3 +44,4 @@ spec:
     description: "Jenkins & Webhook Relay Operators repository"
     repositoryBranch: master
     repositoryUrl: https://github.com/webhookrelay/jenkins-operator-example.git
+    githubPushTrigger: true
