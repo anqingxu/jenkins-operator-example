@@ -5,9 +5,9 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
-        stage('Get & Build') {
+        stage('Build Go App') {
             // git url: 'https://github.com/webhookrelay/jenkins-operator-example.git'
-            stage('checkout') {
+            stage('Checkout') {
                 timeout(time: 3, unit: 'MINUTES') {
                     checkout scm
                 }                

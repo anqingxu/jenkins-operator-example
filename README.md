@@ -143,3 +143,10 @@ Now, any push to your GitHub repository will send a webhook through Webhook Rela
 After a first push or if you trigger the seed job, it will ensure that the pipeline project is set up. At least on the version that I have tested, you first need to start job manually. After it, webhooks will automatically trigger any subsequent builds:
 
 ![Pipelines](static/pipelines.png)
+
+Reference:
+- Jenkins Kubernetes Operator: https://github.com/jenkinsci/kubernetes-operator
+- Jenkins Operator docs: https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/configuration/
+- Jenkins Kubernetes plugin: https://plugins.jenkins.io/kubernetes/
+- Webhook Relay Operator: https://github.com/webhookrelay/webhookrelay-operator/
+- Helm (package manager): https://helm.sh/
