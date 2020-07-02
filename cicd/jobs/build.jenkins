@@ -1,9 +1,15 @@
 #!/usr/bin/env groovy
 
-properties([pipelineTriggers([githubPush()])])
-
 pipelineJob('build-jenkins-operator') {
     displayName('Build jenkins-operator')
+
+    properties {
+        pipelineTriggers {
+            triggers {
+                githubPush()
+            }
+        }
+    }
 
     definition {
         cpsScm {

@@ -5,8 +5,6 @@ def home = "/home/jenkins"
 def workspace = "${home}/workspace/build-jenkins-operator"
 def workdir = "${workspace}/src/github.com/webhookrelay/jenkins-operator-example/"
 
-properties([pipelineTriggers([githubPush()])])
-
 podTemplate(label: label,
         containers: [
                 containerTemplate(name: 'jnlp', image: 'jenkins/inbound-agent:alpine'),
