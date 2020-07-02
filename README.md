@@ -134,6 +134,12 @@ Events:            <none>
 
 Take the public endpoint URL and add it to your GitHub repository:
 
-![](static/github-config.png)
+![Github Repository configuration](static/github-config.png)
 
 Now, any push to your GitHub repository will send a webhook through Webhook Relay to your Jenkins instance that's running inside a Kubernetes cluster.
+
+## Using the pipelines
+
+After a first push or if you trigger the seed job, it will ensure that the pipeline project is set up. At least on the version that I have tested, you first need to start job manually. After it, webhooks will automatically trigger any subsequent builds:
+
+![Pipelines](static/pipelines.png)
