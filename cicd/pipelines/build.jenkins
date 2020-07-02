@@ -17,6 +17,11 @@ podTemplate(label: label,
 
     node(label) {
         dir(workdir) {
+            stage('Build') {
+                container('go') {
+                    sh 'echo "Building.."'
+                }
+            }
             stage('Init') {
                 timeout(time: 2, unit: 'MINUTES') {
                     checkout scm
