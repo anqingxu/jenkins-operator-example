@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+properties([pipelineTriggers([githubPush()])])
+
 pipelineJob('build-jenkins-operator') {
     displayName('Build jenkins-operator')
 
