@@ -135,3 +135,5 @@ Events:            <none>
 Take the public endpoint URL and add it to your GitHub repository:
 
 ![](static/github-config.png)
+
+Now, any push to your GitHub repository will send a webhook through Webhook Relay to your Jenkins instance that's running inside a Kubernetes cluster.
