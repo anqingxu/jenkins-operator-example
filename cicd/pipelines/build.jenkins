@@ -17,14 +17,14 @@ podTemplate(label: label,
 
     node(label) {
         dir(workdir) {
-            // stage('Init') {
-            //     timeout(time: 2, unit: 'MINUTES') {
-            //         checkout scm
-            //     }
-            //     container('go') {
-            //         sh 'apk --no-cache --update add make git gcc libc-dev'
-            //     }
-            // }
+            stage('Init') {
+                timeout(time: 2, unit: 'MINUTES') {
+                    checkout scm
+                }
+                container('go') {
+                    sh 'apk --no-cache --update add make git gcc libc-dev'
+                }
+            }
 
             stage('Dep') {
                 container('go') {

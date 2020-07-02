@@ -9,7 +9,7 @@ pipelineJob('build-jenkins-operator') {
                 git {
                     remote {
                         url('https://github.com/webhookrelay/jenkins-operator-example.git')
-                        credentials('jenkins-operator')
+                        // credentials('jenkins-operator')
                     }
                     branches('*/master')
                 }
