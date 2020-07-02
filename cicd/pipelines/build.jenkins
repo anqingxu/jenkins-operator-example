@@ -12,6 +12,7 @@ podTemplate(containers: [
                     sh """
                     mkdir -p /go/src/github.com/webhookrelay/jenkins-operator-example
                     ln -s `pwd` /go/src/github.com/webhookrelay/jenkins-operator-example
+                    ls -alh
                     cd /go/src/github.com/webhookrelay/jenkins-operator-example && make build
                     """
                 }
