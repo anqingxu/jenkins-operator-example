@@ -1,7 +1,6 @@
 // Documentation for Jenkins Kubernetes plugin can be found here:
 // https://plugins.jenkins.io/kubernetes/
 podTemplate(containers: [
-    containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'golang', image: 'golang:1.14.1', ttyEnabled: true, command: 'cat')
   ]) {
 
