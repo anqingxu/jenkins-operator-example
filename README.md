@@ -148,5 +148,6 @@ Reference:
 - Jenkins Kubernetes Operator: https://github.com/jenkinsci/kubernetes-operator
 - Jenkins Operator docs: https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/configuration/
 - Jenkins Kubernetes plugin: https://plugins.jenkins.io/kubernetes/
+- Jenkins Kubernetes plugin source: https://github.com/jenkinsci/kubernetes-plugin
 - Webhook Relay Operator: https://github.com/webhookrelay/webhookrelay-operator/
 - Helm (package manager): https://helm.sh/
