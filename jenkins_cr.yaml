@@ -56,7 +56,7 @@ spec:
   seedJobs:
   - id: jenkins-operator-example
     targets: "cicd/jobs/*.jenkins"
-    description: "Jenkins & Webhook Relay Operators repository"
+    description: "Jenkins Operators repository"
     repositoryBranch: master
     repositoryUrl: https://github.com/anqingxu/jenkins-operator-example.git
     githubPushTrigger: true
