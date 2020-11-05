@@ -4,9 +4,24 @@ metadata:
   name: jenkins
 spec:
   master:
+    basePlugins:
+    - name: kubernetes
+      version: 1.18.3
+    - name: workflow-job
+      version: "2.40"
+    - name: workflow-aggregator
+      version: "2.6"
+    - name: git
+      version: 3.12.0
+    - name: job-dsl
+      version: "1.76"
+    - name: configuration-as-code
+      version: "1.45"
+    - name: kubernetes-credentials-provider
+      version: 0.12.1
     plugins:
       - name: github
-        version: 1.30.0
+        version: 1.32.0
     containers:
     - name: jenkins-master
       image: jenkins/jenkins:lts
@@ -17,12 +32,12 @@ spec:
           path: /login
           port: http
           scheme: HTTP
-        initialDelaySeconds: 80
+        initialDelaySeconds: 30
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 5
       readinessProbe:
-        failureThreshold: 3
+        failureThreshold: 12
         httpGet:
           path: /login
           port: http
@@ -30,7 +45,7 @@ spec:
         initialDelaySeconds: 30
         periodSeconds: 10
         successThreshold: 1
-        timeoutSeconds: 1
+        timeoutSeconds: 5
       resources:
         limits:
           cpu: 1500m
